@@ -63,6 +63,13 @@
     border: solid 2px transparent;
 }
 
+.blue-ban {
+    position: relative;
+    width: 46px;
+    height: 66px;
+    border: solid 2px transparent;
+}
+
 .image {
     width: 46px;
     height: 46px;
@@ -179,7 +186,7 @@
 
 .hero-container {
     background-color: #011638;
-    width: 625px;
+    width: 650px;
     height: 550px;
 
     position: relative;
@@ -188,9 +195,31 @@
     grid-template-columns: 90px 90px 90px 90px 90px 90px;
     grid-auto-rows: 90px;
     gap: 20px 15px;
-    overflow: scroll;
+    overflow-y: scroll;
+
 }
 
-.card:hover{
+.card:hover {
     border: 2px solid #fff;
 }
+
+.timer-button button {
+    width: 100px;
+    padding: 8px 5px;
+}
+
+.m-l-25 {
+    margin-left: 25px;
+}
+
+.m-l-50 {
+    margin-left: 50px;
+}
+
+.btn-blue {
+    background-color: #008CBA;
+    color: white;
+    cursor: pointer;
+}
+
+/* Blue */

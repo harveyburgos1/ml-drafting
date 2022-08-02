@@ -1,36 +1,41 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { HeroDTO } from '../DTO/heroDTO';
 
 @Component({
   selector: 'app-hero-member',
   templateUrl: './hero-member.component.html',
   styleUrls: ['./hero-member.component.css']
 })
-export class HeroMemberComponent implements AfterViewInit {
-  @Input() image = ''; // decorate the property with @Input()
-  @Input() name = '';
-  @Input() index: number = -1;
+export class HeroMemberComponent implements OnInit, AfterViewInit {
+  @Input() image = '';
+  @Input() name: string = '';
+  @Input() heroid: string = '';
+  @Input() onSelectHero = new Subject<HeroDTO>();
+
   constructor() { }
-  ngAfterViewInit(): void {
-    try {
-      // document.getElementById('image')?.style.backgroundImage = "";
-      document.getElementById(this.index.toString())!.style.backgroundImage = `url(${this.image})`; // specify the image path here
-    }
-    catch (err) {
-      console.log(err);
-    }
+
+  ngOnInit(): void {
+    this.onSelectHero.subscribe(data => {
+      if (data.heroid != this.heroid)
+        return;
+        
+      let selectedHeroDOM = document.querySelector(`#hero-id-${this.heroid}`);
+      this.applyDisabledStyle(selectedHeroDOM);
+    });
   }
 
-  // ngOnInit(): void {
-  //   try {
-  //     // document.getElementById('image')?.style.backgroundImage = "";
-  //     // document.getElementById('image')!.style.backgroundImage = `url(${this.image})`; // specify the image path here
-  //     document.getElementById(this.index.toString())!.style.backgroundImage = `url(http://akmweb.youngjoygame.com/web/madmin/image/7eb35b7780eaa94993aaada931b28adb.png?w=150-150-0d1318)`; // specify the image path here
-  //   }
-  //   catch (err) {
-  //     console.log(err);
-  //   }
+  private applyDisabledStyle(selectedHeroDOM: Element | null) {
+    (selectedHeroDOM as HTMLElement).style.pointerEvents = 'none';
+    (selectedHeroDOM as HTMLElement).style.opacity = '0.5';
+    (selectedHeroDOM as HTMLElement).style.background = '#CCC';
+  }
 
-  // }
+  ngAfterViewInit(): void {
+    document.getElementById(this.name.toString())!.style.backgroundImage = `url(${this.image})`;
+  }
+
+
 
 
 }

@@ -3,115 +3,103 @@
     <section class="head">
       <div class="container-ban">
         <div class="header-blue">
-          <input class="team-input" type="text" value="Blue Team" />
+          <input class="team-input" type="text" value="Team X" />
         </div>
-        <div class="ban-list">
-          <div class="blue-ban">
-            <div class="image"> </div>
+        <div id="blue-ban-list" class="ban-list">
+          <div id="blue-ban" class="ban">
+            <div class="image"></div>
             <div class="label">BAN 1</div>
           </div>
-          <div class="blue-ban">
+          <div id="blue-ban" class="ban">
             <div class="image"> </div>
             <div class="label">BAN 2</div>
           </div>
-          <div class="blue-ban">
+          <div id="blue-ban" class="ban">
             <div class="image"> </div>
             <div class="label">BAN 3</div>
-          </div>
-          <div class="blue-ban">
-            <div class="image"> </div>
-            <div class="label">BAN 4</div>
-          </div>
-          <div class="blue-ban">
-            <div class="image"> </div>
-            <div class="label">BAN 5</div>
           </div>
         </div>
       </div>
       <div class="container-timer">
         <div class="timer">
-          0:30
+          {{timeLeft}}
+        </div>
+        <div class="timer-button">
+          <button class="m-l-25 btn-blue" type="button" (click)="freeDraft()">Free Draft</button>
+          <button class="m-l-50 btn-blue" type="button" (click)="draft()">Draft</button>
         </div>
       </div>
-      <div class="container-ban">
+      <div id="red-container" class="container-ban">
         <div class="header-red">
-          <input class="team-input" type="text"  value="Red Team"/>
+          <input class="team-input" type="text" value="Team X" />
         </div>
-        <div class="ban-list">
-          <div class="ban">
+        <div id="red-ban-list" class="ban-list">
+          <div id="red-ban" class="ban">
             <div class="image"> </div>
             <div class="label">BAN 1</div>
           </div>
-          <div class="ban">
+          <div id="red-ban" class="ban">
             <div class="image"> </div>
             <div class="label">BAN 2</div>
           </div>
-          <div class="blue-ban">
+          <div id="red-ban" class="blue-ban">
             <div class="image"> </div>
             <div class="label">BAN 3</div>
-          </div>
-          <div class="blue-ban">
-            <div class="image"> </div>
-            <div class="label">BAN 4</div>
-          </div>
-          <div class="blue-ban">
-            <div class="image"> </div>
-            <div class="label">BAN 5</div>
           </div>
         </div>
       </div>
     </section>
     <section class="body">
-      <div class="playerList">
-        <div class="player">
+      <div id="blue-player-list" class="playerList">
+        <div id="blue-player" class="player">
           <div class="player-image"></div>
           <div class="player-title">B1</div>
         </div>
-        <div class="player">
+        <div id="blue-player" class="player">
           <div class="player-image"></div>
           <div class="player-title">B2</div>
         </div>
-        <div class="player">
+        <div id="blue-player" class="player">
           <div class="player-image"></div>
           <div class="player-title">B3</div>
         </div>
-        <div class="player">
+        <div id="blue-player" class="player">
           <div class="player-image"></div>
           <div class="player-title">B4</div>
         </div>
-        <div class="player">
+        <div id="blue-player" class="player">
           <div class="player-image"></div>
           <div class="player-title">B5</div>
         </div>
       </div>
       <div class="hero-list">
         <div class="hero-search">
-          <input class="hero-search-input" type="text" value="Search..."/>
+          <input [(ngModel)]="search" class="hero-search-input" type="text" (input)="onInputSearch($event)" value="Search..." />
         </div>
-        <div class="hero-container wrapper">
-          <div class="card" *ngFor="let hero of heroService.heroList; let i = index" (click)="selectHero(hero)">
-            <app-hero-member [index]="i" [image]="hero.key" [name]="hero.name"></app-hero-member>
+        <div class="hero-container wrapper scroller">
+          <div class="card" *ngFor="let hero of heroService.heroList" (click)="selectHero(hero)">
+            <app-hero-member [heroid]="hero.heroid" [image]="hero.key" [name]="hero.name" [onSelectHero]="onHeroClick"></app-hero-member>
           </div>
         </div>
       </div>
-      <div class="playerList">
-        <div class="player">
+      <div id="red-player-list" class="playerList">
+        <div id="red-player" class="player">
           <div class="player-image"></div>
           <div class="player-title">R1</div>
         </div>
-        <div class="player">
+        <div id="red-player" class="player">
           <div class="player-image"></div>
           <div class="player-title">R2</div>
         </div>
-        <div class="player">
+        <div id="red-player" class="player">
           <div class="player-image"></div>
           <div class="player-title">R3</div>
         </div>
-        <div class="player">
+        <div id="red-player" class="player">
           <div class="player-image"></div>
           <div class="player-title">R4</div>
         </div>
-        <div class="player">
+        <div id="red-player" class="player">
           <div class="player-image"></div>
           <div class="player-title">R5</div>
         </div>
