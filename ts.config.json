@@ -21,6 +21,7 @@
       "types": [
         "jquery"
       ],
+      "strictNullChecks": false,
       "module": "es2015",
       "baseUrl": "src",
       "paths": {

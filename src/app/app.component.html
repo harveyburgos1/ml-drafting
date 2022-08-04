@@ -18,6 +18,14 @@
             <div class="image"> </div>
             <div class="label">BAN 3</div>
           </div>
+          <div id="blue-ban" class="ban">
+            <div class="image"> </div>
+            <div class="label">BAN 4</div>
+          </div>
+          <div id="blue-ban" class="ban">
+            <div class="image"> </div>
+            <div class="label">BAN 5</div>
+          </div>
         </div>
       </div>
       <div class="container-timer">
@@ -25,11 +33,14 @@
           {{timeLeft}}
         </div>
         <div class="timer-button">
-          <button class="m-l-25 btn-blue" type="button" (click)="freeDraft()">Free Draft</button>
-          <button class="m-l-50 btn-blue" type="button" (click)="draft()">Draft</button>
+          <ng-container *ngIf="!isDraftStarted">
+            <button class="m-l-25 btn-blue" type="button" (click)="freeDraft()">Free Draft</button>
+            <button class="m-l-50 btn-blue" type="button" (click)="draft()">Draft</button>
+          </ng-container>
+          <button class="btn-blue" *ngIf="isDraftStarted" type="button" (click)="reset()" style="margin-left: 100px;">Reset</button>
         </div>
       </div>
-      <div id="red-container" class="container-ban">
+      <div class="container-ban">
         <div class="header-red">
           <input class="team-input" type="text" value="Team X" />
         </div>
@@ -46,62 +57,72 @@
             <div class="image"> </div>
             <div class="label">BAN 3</div>
           </div>
+          <div id="red-ban" class="blue-ban">
+            <div class="image"> </div>
+            <div class="label">BAN 4</div>
+          </div>
+          <div id="red-ban" class="blue-ban">
+            <div class="image"> </div>
+            <div class="label">BAN 5</div>
+          </div>
         </div>
       </div>
     </section>
     <section class="body">
-      <div id="blue-player-list" class="playerList">
-        <div id="blue-player" class="player">
-          <div class="player-image"></div>
-          <div class="player-title">B1</div>
+      <div id="blue-pick-list">
+        <div id="blue-pick" class="pick">
+          <div class="pick-image"></div>
+          <div class="pick-name">B1</div>
         </div>
-        <div id="blue-player" class="player">
-          <div class="player-image"></div>
-          <div class="player-title">B2</div>
+        <div id="blue-pick" class="pick">
+          <div class="pick-image"></div>
+          <div class="pick-name">B2</div>
         </div>
-        <div id="blue-player" class="player">
-          <div class="player-image"></div>
-          <div class="player-title">B3</div>
+        <div id="blue-pick" class="pick">
+          <div class="pick-image"></div>
+          <div class="pick-name">B3</div>
         </div>
-        <div id="blue-player" class="player">
-          <div class="player-image"></div>
-          <div class="player-title">B4</div>
+        <div id="blue-pick" class="pick">
+          <div class="pick-image"></div>
+          <div class="pick-name">B4</div>
         </div>
-        <div id="blue-player" class="player">
-          <div class="player-image"></div>
-          <div class="player-title">B5</div>
+        <div id="blue-pick" class="pick">
+          <div class="pick-image"></div>
+          <div class="pick-name">B5</div>
         </div>
       </div>
       <div class="hero-list">
         <div class="hero-search">
-          <input [(ngModel)]="search" class="hero-search-input" type="text" (input)="onInputSearch($event)" value="Search..." />
+          <input [(ngModel)]="search" class="hero-search-input" type="text" (input)="onInputSearch($event)"
+            placeholder="Search..." />
         </div>
         <div class="hero-container wrapper scroller">
           <div class="card" *ngFor="let hero of heroService.heroList" (click)="selectHero(hero)">
-            <app-hero-member [heroid]="hero.heroid" [image]="hero.key" [name]="hero.name" [onSelectHero]="onHeroClick"></app-hero-member>
+            <app-hero-member [heroid]="hero.heroid" [image]="hero.key" [name]="hero.name" [onSelectHero]="onHeroClick">
+            </app-hero-member>
           </div>
         </div>
       </div>
-      <div id="red-player-list" class="playerList">
-        <div id="red-player" class="player">
-          <div class="player-image"></div>
-          <div class="player-title">R1</div>
+      <div id="red-pick-list">
+        <div id="red-pick" class="pick">
+          <div class="pick-image"></div>
+          <div class="pick-name">R1</div>
         </div>
-        <div id="red-player" class="player">
-          <div class="player-image"></div>
-          <div class="player-title">R2</div>
+        <div id="red-pick" class="pick">
+          <div class="pick-image"></div>
+          <div class="pick-name">R2</div>
         </div>
-        <div id="red-player" class="player">
-          <div class="player-image"></div>
-          <div class="player-title">R3</div>
+        <div id="red-pick" class="pick">
+          <div class="pick-image"></div>
+          <div class="pick-name">R3</div>
         </div>
-        <div id="red-player" class="player">
-          <div class="player-image"></div>
-          <div class="player-title">R4</div>
+        <div id="red-pick" class="pick">
+          <div class="pick-image"></div>
+          <div class="pick-name">R4</div>
         </div>
-        <div id="red-player" class="player">
-          <div class="player-image"></div>
-          <div class="player-title">R5</div>
+        <div id="red-pick" class="pick">
+          <div class="pick-image"></div>
+          <div class="pick-name">R5</div>
         </div>
       </div>
     </section>

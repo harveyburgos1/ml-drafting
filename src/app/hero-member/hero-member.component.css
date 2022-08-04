@@ -20,3 +20,7 @@
     text-align: center;
     white-space: nowrap;
 }
+
+.image:hover {
+    border: 4px solid #fff;
+}

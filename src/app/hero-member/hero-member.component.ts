@@ -27,8 +27,7 @@ export class HeroMemberComponent implements OnInit, AfterViewInit {
 
   private applyDisabledStyle(selectedHeroDOM: Element | null) {
     (selectedHeroDOM as HTMLElement).style.pointerEvents = 'none';
-    (selectedHeroDOM as HTMLElement).style.opacity = '0.5';
-    (selectedHeroDOM as HTMLElement).style.background = '#CCC';
+    (selectedHeroDOM as HTMLElement).style.opacity = '0.25';
   }
 
   ngAfterViewInit(): void {

@@ -1,7 +1,7 @@
 .main-container {
     position: relative;
     top: 50px;
-    max-width: 1700px;
+    max-width: 1170px;
     margin: auto;
     display: grid;
     grid-template-columns: 1100px 600px;
@@ -10,8 +10,8 @@
 }
 
 .container {
-    width: 1000px;
-    height: 760px;
+    width: 1170px;
+    height: 800px;
     padding: 50px;
     padding-top: 40px;
     background-color: #000a19;
@@ -19,7 +19,7 @@
 
 .head {
     display: grid;
-    grid-template-columns: 330px 300px 330px;
+    grid-template-columns: 420px 310px 400px;
     gap: 0px 20px;
 }
 
@@ -38,20 +38,18 @@
     background: transparent;
     border: none;
     outline: none;
-    padding: 0px 5% 0px 5%;
+    padding: 2% 5%;
     color: #fff;
     font-size: 20px;
     font-weight: bold;
-    font-family: "Fira Mono", monospace;
     text-align: left;
     line-height: 100%;
-    cursor: pointer;
 }
 
 .ban-list {
     margin-top: 10px;
     display: grid;
-    grid-template-columns: 50px 50px 50px 50px 50px;
+    grid-template-columns: 74px 74px 74px 74px 74px;
     grid-gap: 0px 10px;
     grid-template-areas: "ban1 ban2 ban3 ban4 ban5";
 }
@@ -71,8 +69,8 @@
 }
 
 .image {
-    width: 46px;
-    height: 46px;
+    width: 70px;
+    height: 70px;
     background-color: #011638;
     background-size: cover;
 }
@@ -114,11 +112,11 @@
 
 .body {
     display: grid;
-    grid-template-columns: 140px 625px 140px;
+    grid-template-columns: 200px 700px 200px;
     gap: 0px 50px;
 }
 
-.player-list {
+.pick-list {
     position: relative;
     width: -webkit-fit-content;
     width: -moz-fit-content;
@@ -131,18 +129,18 @@
     gap: 15px 0px;
 }
 
-.player {
+.pick {
     grid-template-columns: 40px 94px;
     grid-template-areas: "titleDiv imageDiv";
     width: 134px;
     height: 94px;
     display: grid;
     border: solid 3px transparent;
-    cursor: pointer;
     color: white;
+    margin-bottom: 35px;
 }
 
-.player-image {
+.pick-image {
     grid-area: imageDiv;
     position: relative;
     width: 94px;
@@ -151,7 +149,7 @@
     background-size: cover;
 }
 
-.player-title {
+.pick-name {
     grid-area: titleDiv;
     position: relative;
     width: 40px;
@@ -165,7 +163,7 @@
 .hero-search {
     position: relative;
     top: 3px;
-    width: 625px;
+    width: 650px;
     height: 40px;
     background-color: #011638;
     margin-bottom: 10px;
@@ -199,10 +197,6 @@
 
 }
 
-.card:hover {
-    border: 2px solid #fff;
-}
-
 .timer-button button {
     width: 100px;
     padding: 8px 5px;
@@ -222,4 +216,10 @@
     cursor: pointer;
 }
 
-/* Blue */
+#blue-pick {
+    color: #33f;
+}
+
+#red-pick {
+    color:#a00;
+}
