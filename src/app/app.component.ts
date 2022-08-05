@@ -14,7 +14,6 @@ export class AppComponent implements OnInit {
   private readonly TIMER_LENGTH: number = 30;
   private readonly BAN_IMAGE_CLASS_NAME = ".image"
 
-  title = 'ml-draft';
   onHeroClick = new Subject<HeroDTO>();
   interval: any;
   search: string = "";

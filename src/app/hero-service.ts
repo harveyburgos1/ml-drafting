@@ -12,28 +12,18 @@ export class HeroService {
     this.http.options
   }
 
-  // getHeroList() {
-  //   return this.http.get('https://api.jsonbin.io/v3/b/62e79f5460c3536f3fcc853f', {
-  //     headers: { 'X-Master-Key': '$2b$10$DapXgB9/4AcoVGhstD7y7.rqazG.CYEdxt0pHHEg4rN0E9uJ83zvi' }
-  //   }).subscribe((result: any) => {
-  //     this.heroList = result.record.data;
-  //     this.heroList.sort((a: any, b: any) => this.compareName(a,b));
-  //   });
-  // }
-
   getHeroList() {
-    if (this.originalHeroList.length > 0) 
-    {
-      this.heroList = this.originalHeroList.map(x => Object.assign({}, x)); 
+    if (this.originalHeroList.length > 0) {
+      this.heroList = this.originalHeroList.map(x => Object.assign({}, x));
       return;
     }
-    return this.http.get<HeroDTO>('../assets/hero-list.json').subscribe((result: any) => {
+    return this.http.get('https://api.npoint.io/ea338c5ee1c9d316a0f5').subscribe((result: any) => {
       this.heroList = result.data;
       this.heroList.forEach(hero => {
         hero.isSelected = false;
       });
-      this.heroList.sort((a: any, b: any) => this.compareName(a,b));
-      this.originalHeroList = this.heroList.map(x => Object.assign({}, x)); 
+      this.heroList.sort((a: any, b: any) => this.compareName(a, b));
+      this.originalHeroList = this.heroList.map(x => Object.assign({}, x));
     });
   }
 

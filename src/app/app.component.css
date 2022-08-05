@@ -113,7 +113,7 @@
     display: grid;
     grid-template-columns: 110px 550px 0;
     gap: 0px 50px;
-    margin-left: 50px;
+    margin-left: 75px;
 }
 
 .pick {
