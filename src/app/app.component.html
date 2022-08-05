@@ -93,7 +93,7 @@
       </div>
       <div class="hero-list">
         <div class="hero-search">
-          <input [(ngModel)]="search" class="hero-search-input" type="text" (input)="onInputSearch($event)"
+          <input [(ngModel)]="search" class="hero-search-input" type="text" (ngModelChange)="onInputSearch($event)"
             placeholder="Search..." />
         </div>
         <div class="hero-container wrapper scroller">

@@ -10,5 +10,5 @@ html::-webkit-scrollbar {
     display: none;  /* Safari and Chrome */
 }
 body {
-    background-image: linear-gradient(#001c48, #000a19);
+    background: #000a19;
 }

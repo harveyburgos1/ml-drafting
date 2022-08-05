@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HeroDTO } from './DTO/heroDTO';
 import { Subject } from 'rxjs';
 import { HeroService } from './hero-service';
@@ -11,7 +11,7 @@ import { SetBackgroundImageDTO } from './DTO/SetBackgroundImageDTO';
 })
 
 export class AppComponent implements OnInit {
-  private readonly TIMER_LENGTH: number = 1;
+  private readonly TIMER_LENGTH: number = 30;
   private readonly BAN_IMAGE_CLASS_NAME = ".image"
 
   title = 'ml-draft';
@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
   isDraftStarted: boolean = false;
   emptyHero: HeroDTO = { heroid: '', name: '', key: '', isSelected: false }
 
-  timeLeft: number = this.TIMER_LENGTH;
+  timeLeft: any = this.TIMER_LENGTH;
   constructor(public heroService: HeroService) {
   }
 
@@ -59,8 +59,6 @@ export class AppComponent implements OnInit {
     else {
       this.draftSequence(hero);
     }
-
-    this.disableSelectedHero(hero);
   }
 
   isEven(number: any): boolean {
@@ -69,11 +67,6 @@ export class AppComponent implements OnInit {
 
   isOddArrayLength(array1: any, array2: any) {
     return (array1.length + array2.length) % 2;
-  }
-
-  disableSelectedHero(hero: HeroDTO) {
-    let selectedHeroDOM = document.querySelector(`#hero-id-${hero.heroid}`);
-    (selectedHeroDOM as HTMLElement).style.backgroundImage = 'url()';
   }
 
   startTimer(): void {
@@ -108,10 +101,21 @@ export class AppComponent implements OnInit {
   }
 
   onInputSearch($event: any): void {
+    this.search = this.search.trim();
+
     if (this.search.toLowerCase().length == 0) {
       this.heroService.getHeroList();
+      this.setIsSelectedPropertyOnHeroList();
       return;
     }
+
+    let key = $event.keyCode;
+    // Reset hero list every backspace
+    if(key == 8 || key == 46 || this.search.length == 1){
+      this.heroService.getHeroList();
+      this.setIsSelectedPropertyOnHeroList();
+    }
+    
 
     let newHeroList = [];
     for (var i = 0; i < this.heroService.heroList.length; i++) {
@@ -122,6 +126,20 @@ export class AppComponent implements OnInit {
     this.heroService.heroList = newHeroList;
   }
 
+  setIsSelectedPropertyOnHeroList() {
+    let selectedHeroes = this.blueBanList.concat(this.redBanList).concat(this.bluePickList).concat(this.redPickList);
+     selectedHeroes.forEach(x => {
+      let index = this.heroService.heroList.findIndex(y => y.heroid == x.heroid);
+      this.heroService.heroList[index].isSelected = true;
+     });
+
+     setTimeout(() => {
+     this.heroService.heroList.filter(x => x.isSelected).forEach(x => {
+      this.onHeroClick.next(x);
+     })
+    }, 0)
+  }
+
   getSelectedHeroes(): HeroDTO[] {
     return this.blueBanList.concat(this.redBanList).concat(this.bluePickList).concat(this.redPickList);
   }
@@ -129,7 +147,7 @@ export class AppComponent implements OnInit {
   freeDraft(): void {
     this.applyEnableHeroContainerStyle();
     this.isDraftStarted = true;
-    this.timeLeft = NaN;
+    this.timeLeft = "--";
     this.setDivBorderOnDraft();
   }
 
@@ -166,6 +184,7 @@ export class AppComponent implements OnInit {
     this.isDraftStarted = false;
     this.isTimedDraftStarted = false;
     this.isDraftEnded = false;
+    this.search = "";
     this.heroService.getHeroList();
   }
 
