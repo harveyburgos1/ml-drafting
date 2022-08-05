@@ -327,38 +327,38 @@ export class AppComponent implements OnInit {
     // PICK
     if (selectedPickListLength == 0) {
       this.clearCurrentHeroPickBorder();
-      (bluePickChildren[0] as HTMLElement).style.border = borderStyle;
+      (bluePickChildren[0].querySelectorAll('.pick-image')[0] as HTMLElement).style.border = borderStyle;
       return;
     }
     else if (selectedPickListLength <= 2) {
       this.clearCurrentHeroPickBorder();
-      (redPickChildren[0] as HTMLElement).style.border = borderStyle;
-      (redPickChildren[1] as HTMLElement).style.border = borderStyle;
+      (redPickChildren[0].querySelectorAll('.pick-image')[0] as HTMLElement).style.border = borderStyle;
+      (redPickChildren[1].querySelectorAll('.pick-image')[0] as HTMLElement).style.border = borderStyle;
       return;
     }
     else if (selectedPickListLength <= 4) {
       this.clearCurrentHeroPickBorder();
-      (bluePickChildren[1] as HTMLElement).style.border = borderStyle;
-      (bluePickChildren[2] as HTMLElement).style.border = borderStyle;
+      (bluePickChildren[1].querySelectorAll('.pick-image')[0] as HTMLElement).style.border = borderStyle;
+      (bluePickChildren[2].querySelectorAll('.pick-image')[0] as HTMLElement).style.border = borderStyle;
       return;
     }
     else if (selectedPickListLength == 5) {
       this.clearCurrentHeroPickBorder();
-      (redPickChildren[2] as HTMLElement).style.border = borderStyle;
+      (redPickChildren[2].querySelectorAll('.pick-image')[0] as HTMLElement).style.border = borderStyle;
     }
     else if (selectedPickListLength == 6) {
       this.clearCurrentHeroPickBorder();
-      (redPickChildren[3] as HTMLElement).style.border = borderStyle;
+      (redPickChildren[3].querySelectorAll('.pick-image')[0] as HTMLElement).style.border = borderStyle;
     }
     else if (selectedPickListLength <= 8) {
       this.clearCurrentHeroPickBorder();
-      (bluePickChildren[3] as HTMLElement).style.border = borderStyle;
-      (bluePickChildren[4] as HTMLElement).style.border = borderStyle;
+      (bluePickChildren[3].querySelectorAll('.pick-image')[0] as HTMLElement).style.border = borderStyle;
+      (bluePickChildren[4].querySelectorAll('.pick-image')[0] as HTMLElement).style.border = borderStyle;
       return;
     }
     else if (selectedPickListLength == 9) {
       this.clearCurrentHeroPickBorder();
-      (redPickChildren[4] as HTMLElement).style.border = borderStyle;
+      (redPickChildren[4].querySelectorAll('.pick-image')[0] as HTMLElement).style.border = borderStyle;
       return;
     }
   }
@@ -388,7 +388,7 @@ export class AppComponent implements OnInit {
 
   clearDivBorder(array: NodeListOf<Element>) {
     array.forEach(x => {
-      (x as HTMLElement).style.border = 'none';
+      (x.querySelectorAll('.pick-image')[0] as HTMLElement).style.border = 'none';
     });
   }
 

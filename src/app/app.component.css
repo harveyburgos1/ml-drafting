@@ -10,8 +10,8 @@
 }
 
 .container {
-    width: 1170px;
-    height: 800px;
+    width: 1050px;
+    height: 600px;
     padding: 50px;
     padding-top: 40px;
     background-color: #000a19;
@@ -19,13 +19,13 @@
 
 .head {
     display: grid;
-    grid-template-columns: 420px 310px 400px;
-    gap: 0px 20px;
+    grid-template-columns: 380px 310px 380px;
+    /* gap: 0px 20px; */
 }
 
 .container-ban {
     height: 160px;
-    width: 408px;
+    width: 365px;
 }
 
 .header-blue {
@@ -49,15 +49,14 @@
 .ban-list {
     margin-top: 10px;
     display: grid;
-    grid-template-columns: 74px 74px 74px 74px 74px;
-    grid-gap: 0px 10px;
+    grid-template-columns: 76px 76px 76px 76px 76px;
     grid-template-areas: "ban1 ban2 ban3 ban4 ban5";
 }
 
 .ban {
     position: relative;
-    width: 46px;
-    height: 66px;
+    width: 60px;
+    height: 60px;
     border: solid 2px transparent;
 }
 
@@ -69,8 +68,8 @@
 }
 
 .image {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     background-color: #011638;
     background-size: cover;
 }
@@ -112,39 +111,26 @@
 
 .body {
     display: grid;
-    grid-template-columns: 200px 700px 200px;
+    grid-template-columns: 110px 550px 0;
     gap: 0px 50px;
-}
-
-.pick-list {
-    position: relative;
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
-    width: fit-content;
-    height: -webkit-fit-content;
-    height: -moz-fit-content;
-    height: fit-content;
-    display: grid;
-    grid-template-rows: 100px 100px 100px 25px 100px 100px;
-    gap: 15px 0px;
+    margin-left: 50px;
 }
 
 .pick {
-    grid-template-columns: 50px 94px;
+    grid-template-columns: 50px 76px;
     grid-template-areas: "titleDiv imageDiv";
-    width: 144px;
-    height: 94px;
+    width: 76px;
+    height: 76px;
     display: grid;
     border: solid 3px transparent;
     color: white;
-    margin-bottom: 35px;
 }
 
 .pick-image {
     grid-area: imageDiv;
     position: relative;
-    width: 94px;
-    height: 94px;
+    width: 60px;
+    height: 60px;
     background-color: #011638;
     background-size: cover;
 }
@@ -163,7 +149,7 @@
 .hero-search {
     position: relative;
     top: 3px;
-    width: 650px;
+    width: 550px;
     height: 40px;
     background-color: #011638;
     margin-bottom: 10px;
@@ -184,14 +170,13 @@
 
 .hero-container {
     background-color: #011638;
-    width: 650px;
-    height: 550px;
-
+    width: 550px;
+    height: 380px;
     position: relative;
     top: 10px;
     display: grid;
-    grid-template-columns: 90px 90px 90px 90px 90px 90px;
-    grid-auto-rows: 90px;
+    grid-template-columns: 76px 76px 76px 76px 76px 76px;
+    grid-auto-rows: 76px;
     gap: 20px 15px;
     overflow-y: scroll;
 
@@ -218,6 +203,14 @@
 
 #blue-pick {
     color: #33f;
+}
+
+#blue-pick-list {
+    margin-top: 20px;
+}
+
+#red-pick-list {
+    margin-top: 20px;
 }
 
 #red-pick {

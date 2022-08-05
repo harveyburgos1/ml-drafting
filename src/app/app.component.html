@@ -97,7 +97,7 @@
             placeholder="Search..." />
         </div>
         <div class="hero-container wrapper scroller">
-          <div class="card" *ngFor="let hero of heroService.heroList" (click)="selectHero(hero)">
+          <div *ngFor="let hero of heroService.heroList" (click)="selectHero(hero)">
             <app-hero-member [heroid]="hero.heroid" [image]="hero.key" [name]="hero.name" [onSelectHero]="onHeroClick">
             </app-hero-member>
           </div>

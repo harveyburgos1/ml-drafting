@@ -1,12 +1,12 @@
 .container {
-    width: 90px;
-    height: 90px;
+    width: 76px;
+    height: 76px;
 }
 
 .image {
     margin: 0px 10px 4px 10px;
-    width: 76px;
-    height: 76px;
+    width: 60px;
+    height: 60px;
     background-repeat: no-repeat;
     background-size: cover;
     border: solid 2px transparent;
