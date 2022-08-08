@@ -11,7 +11,7 @@ import { SetBackgroundImageDTO } from './DTO/SetBackgroundImageDTO';
 })
 
 export class AppComponent implements OnInit {
-  private readonly TIMER_LENGTH: number = 5;
+  private readonly TIMER_LENGTH: number = 50;
   private readonly BAN_IMAGE_CLASS_NAME = ".image"
   private readonly PICK_IMAGE_CLASS_NAME = ".pick-image"
 
