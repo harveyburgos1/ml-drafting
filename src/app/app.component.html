@@ -34,10 +34,10 @@
         </div>
         <div class="timer-button">
           <ng-container *ngIf="!isDraftStarted">
-            <button class="m-l-25 btn-blue" type="button" (click)="freeDraft()">Free Draft</button>
-            <button class="m-l-50 btn-blue" type="button" (click)="draft()">Draft</button>
+            <button class="m-l-25 btn-blue" type="button" (click)="onClickFreeDraft()">Free Draft</button>
+            <button class="m-l-50 btn-blue" type="button" (click)="onClickDraft()">Draft</button>
           </ng-container>
-          <button class="btn-blue" *ngIf="isDraftStarted" type="button" (click)="reset()" style="margin-left: 100px;">Reset</button>
+          <button class="btn-blue" *ngIf="isDraftStarted" type="button" (click)="onClickReset()" style="margin-left: 100px;">Reset</button>
         </div>
       </div>
       <div class="container-ban">
@@ -98,7 +98,7 @@
         </div>
         <div class="hero-container wrapper scroller">
           <div *ngFor="let hero of heroService.heroList" (click)="onClickHero(hero)">
-            <app-hero-member [heroid]="hero.heroid" [image]="hero.key" [name]="hero.name" [onSelectHero]="onHeroClick">
+            <app-hero-member [heroid]="hero.heroid" [image]="hero.key" [name]="hero.name" [onSelectHero]="onSelectHero">
             </app-hero-member>
           </div>
         </div>

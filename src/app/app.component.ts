@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   private readonly BAN_IMAGE_CLASS_NAME = ".image"
   private readonly PICK_IMAGE_CLASS_NAME = ".pick-image"
 
-  onHeroClick = new Subject<HeroDTO>();
+  onSelectHero = new Subject<HeroDTO>();
   interval: any;
   search: string = "";
   blueBanList: HeroDTO[] = [];
@@ -43,8 +43,8 @@ export class AppComponent implements OnInit {
 
     hero.isSelected = true;
     this.addSelectedHero(hero);
-    this.updateHeroUI();
-    this.onHeroClick.next(hero);
+    this.setStyles();
+    this.onSelectHero.next(hero);
   }
 
   addSelectedHero(hero: any): void {
@@ -54,10 +54,7 @@ export class AppComponent implements OnInit {
     }
 
     this.draftSequence(hero);
-    if (this.isBanningPhase()
-      || this.getArrayLength(this.bluePickList, this.redPickList) == 0
-      || this.getArrayLength(this.bluePickList, this.redPickList) == 6
-      || !this.isEven(this.bluePickList.length + this.redPickList.length)) {
+    if (this.isBanningPhase() || this.isPickingPhase()) {
       this.timeLeft = this.TIMER_LENGTH;
       this.stopTimer();
       this.startTimer();
@@ -89,7 +86,7 @@ export class AppComponent implements OnInit {
 
   selectEmptyHero(): void {
     this.draftSequence(this.emptyHero, this.emptyHero);
-    this.updateHeroUI();
+    this.setStyles();
   }
 
   getRandomHero(): HeroDTO {
@@ -133,7 +130,7 @@ export class AppComponent implements OnInit {
 
     setTimeout(() => {
       this.heroService.heroList.filter(x => x.isSelected).forEach(x => {
-        this.onHeroClick.next(x);
+        this.onSelectHero.next(x);
       })
     }, 0)
   }
@@ -142,14 +139,14 @@ export class AppComponent implements OnInit {
     return this.blueBanList.concat(this.redBanList).concat(this.bluePickList).concat(this.redPickList);
   }
 
-  freeDraft(): void {
+  onClickFreeDraft(): void {
     this.applyEnableHeroContainerStyle();
     this.isDraftStarted = true;
     this.timeLeft = "--";
     this.setDivImageBorder();
   }
 
-  draft() {
+  onClickDraft() {
     this.applyEnableHeroContainerStyle();
     this.isDraftStarted = true;
     this.setDivImageBorder();
@@ -164,7 +161,7 @@ export class AppComponent implements OnInit {
     (document.getElementsByClassName('hero-container')[0] as HTMLElement).style.opacity = "1";
   }
 
-  reset() {
+  onClickReset() {
     this.setHeroContainerToDisabledStyle();
     this.clearSelectedHeroesImage();
     this.setDivBanBackgroundImage();
@@ -187,63 +184,74 @@ export class AppComponent implements OnInit {
     this.getSelectedHeroes().forEach(x => x.key = '');
   }
 
-  draftSequence(hero: HeroDTO, hero2?: HeroDTO): void {
-    let selectedPickListLength = this.getArrayLength(this.bluePickList, this.redPickList);
-
+  draftSequence(firstHero: HeroDTO, secondHero?: HeroDTO): void {
     if (this.isBanningPhase()) {
-      let selectedBanListLength = this.getArrayLength(this.blueBanList, this.redBanList);
-      if ((this.isEven(selectedBanListLength) && selectedPickListLength == 0)
-        || (!this.isEven(selectedBanListLength) && selectedPickListLength == 6)) {
-        this.blueBanList.push(hero);
-        return;
-      }
-      else {
-        this.redBanList.push(hero);
-        return;
-      }
+      this.draftBanSequence(firstHero);
+      return;
     }
+
+    this.draftPickSequence(firstHero, secondHero!);
+    return;
+  }
+
+  draftBanSequence(hero: HeroDTO){
+    if (this.isBlueTeamTurnToBan()) {
+      this.blueBanList.push(hero);
+      return;
+    }
+    else {
+      this.redBanList.push(hero);
+      return;
+    }
+  }
+
+  draftPickSequence(firstHero: HeroDTO, secondHero: HeroDTO){
+    let selectedPickListLength = this.addArrayLength(this.bluePickList, this.redPickList);
 
     // Assign random hero when the timer expires
     let isRandom = false;
-    if (this.isEmptyHero(hero)) {
-      hero = this.getRandomHero();
+
+    if (this.isEmptyHero(firstHero)) {
       isRandom = true;
-      hero2 = this!.getRandomHero();
-      if (isRandom) this.onHeroClick.next(hero);
+      firstHero = this.getRandomHero();
+      secondHero = this!.getRandomHero();
     }
 
+    if (isRandom)
+      this.onSelectHero.next(firstHero);
+
     if (selectedPickListLength == 0) {
-      this.bluePickList.push(hero);
+      this.bluePickList.push(firstHero);
     }
     else if (selectedPickListLength <= 2) {
       if (isRandom && this.redPickList.length == 0) {
-        this.redPickList.push(hero2!);
-        this.onHeroClick.next(hero2!);
+        this.redPickList.push(secondHero!);
+        this.onSelectHero.next(secondHero!);
       }
-      this.redPickList.push(hero);
+      this.redPickList.push(firstHero);
     }
     else if (selectedPickListLength <= 4) {
       if (isRandom && this.bluePickList.length == 1) {
-        this.bluePickList.push(hero2!);
-        this.onHeroClick.next(hero2!);
+        this.bluePickList.push(secondHero!);
+        this.onSelectHero.next(secondHero!);
       }
-      this.bluePickList.push(hero);
+      this.bluePickList.push(firstHero);
     }
     else if (selectedPickListLength == 5) {
-      this.redPickList.push(hero);
+      this.redPickList.push(firstHero);
     }
     else if (selectedPickListLength == 6) {
-      this.redPickList.push(hero);
+      this.redPickList.push(firstHero);
     }
     else if (selectedPickListLength <= 8) {
       if (isRandom && this.bluePickList.length == 3) {
-        this.bluePickList.push(hero2!);
-        this.onHeroClick.next(hero2!);
+        this.bluePickList.push(secondHero!);
+        this.onSelectHero.next(secondHero!);
       }
-      this.bluePickList.push(hero);
+      this.bluePickList.push(firstHero);
     }
     else if (selectedPickListLength == 9) {
-      this.redPickList.push(hero);
+      this.redPickList.push(firstHero);
       this.isDraftEnded = true;
       this.setHeroContainerToDisabledStyle();
       this.stopTimer();
@@ -252,13 +260,19 @@ export class AppComponent implements OnInit {
   }
 
   private isBanningPhase(): boolean {
-    return (this.getArrayLength(this.blueBanList, this.redBanList) < 6
-      && this.getArrayLength(this.bluePickList, this.redPickList) == 0)
-      || (this.getArrayLength(this.blueBanList, this.redBanList) < 10
-        && this.getArrayLength(this.bluePickList, this.redPickList) == 6);
+    return (this.addArrayLength(this.blueBanList, this.redBanList) < 6
+      && this.addArrayLength(this.bluePickList, this.redPickList) == 0)
+      || (this.addArrayLength(this.blueBanList, this.redBanList) < 10
+        && this.addArrayLength(this.bluePickList, this.redPickList) == 6);
   }
 
-  private getArrayLength(array1: any, array2: any) {
+  private isPickingPhase(): boolean {
+    return this.addArrayLength(this.bluePickList, this.redPickList) == 0
+    || this.addArrayLength(this.bluePickList, this.redPickList) == 6
+    || !this.isEven(this.bluePickList.length + this.redPickList.length)
+  }
+
+  private addArrayLength(array1: any, array2: any) {
     return array1.length + array2.length;
   }
 
@@ -276,7 +290,7 @@ export class AppComponent implements OnInit {
     this.commonSetBackgroundImage(new SetBackgroundImageDTO('#red-pick-list', '#red-pick', this.redPickList, 'pick-image'));
   }
 
-  updateHeroUI(): void {
+  setStyles(): void {
     this.setDivBanBackgroundImage();
     this.setDivPickBackgroundImage();
     this.setDivImageBorder();
@@ -292,73 +306,79 @@ export class AppComponent implements OnInit {
   }
 
   setDivImageBorder() {
-    let borderStyle = '1px solid white'
-    let selectedPickListLength = this.getArrayLength(this.bluePickList, this.redPickList);
-
     if (this.isBanningPhase()) {
-      let blueBanChildren = this.getDivChildren('#blue-ban-list', '#blue-ban');
-      let redBanChildren = this.getDivChildren('#red-ban-list', '#red-ban');
-
-      let selectedBanListLength = this.getArrayLength(this.blueBanList, this.redBanList);
-
-      this.clearCurrentHeroPickBorder();
-
-      if ((this.isEven(selectedBanListLength) && selectedPickListLength == 0)
-        || (!this.isEven(selectedBanListLength) && selectedPickListLength == 6)) {
-        this.getDivImage(blueBanChildren[this.blueBanList.length], this.BAN_IMAGE_CLASS_NAME).style.border = borderStyle;
-        return;
-      }
-      else {
-        this.getDivImage(redBanChildren[this.redBanList.length], this.BAN_IMAGE_CLASS_NAME).style.border = borderStyle;
-        return;
-      }
+      this.setDivBanImageBorder();
+      return;
     }
 
-    let bluePickParent = document.querySelector('#blue-pick-list');
-    let redPickParent = document.querySelector('#red-pick-list');
-    let bluePickChildren = bluePickParent!.querySelectorAll('#blue-pick');
-    let redPickChildren = redPickParent!.querySelectorAll('#red-pick');
+    this.setDivPickImageBorder();
+    return;
+  }
 
-    // PICK
+  setDivBanImageBorder(){
+    let borderStyle = '1px solid white'
+    let blueBanChildren = this.getDivChildren('#blue-ban-list', '#blue-ban');
+    let redBanChildren = this.getDivChildren('#red-ban-list', '#red-ban');
+
+    this.clearCurrentHeroPickBorder();
+
+    if (this.isBlueTeamTurnToBan()) {
+      this.getDivImage(blueBanChildren[this.blueBanList.length], this.BAN_IMAGE_CLASS_NAME).style.border = borderStyle;
+      return;
+    }
+    else {
+      this.getDivImage(redBanChildren[this.redBanList.length], this.BAN_IMAGE_CLASS_NAME).style.border = borderStyle;
+      return;
+    }
+  }
+
+  setDivPickImageBorder() {
+    let borderStyle = '1px solid white'
+    let selectedPickListLength = this.addArrayLength(this.bluePickList, this.redPickList);
+    let bluePickChildren = this.getDivChildren('#blue-pick-list', '#blue-pick');
+    let redPickChildren = this.getDivChildren('#red-pick-list', '#red-pick');
+
+    this.clearCurrentHeroPickBorder();
+
     if (selectedPickListLength == 0) {
-      this.clearCurrentHeroPickBorder();
       this.getDivImage(bluePickChildren[0], this.PICK_IMAGE_CLASS_NAME).style.border = borderStyle;
       return;
     }
     else if (selectedPickListLength <= 2) {
-      this.clearCurrentHeroPickBorder();
       this.getDivImage(redPickChildren[0], this.PICK_IMAGE_CLASS_NAME).style.border = borderStyle;
       this.getDivImage(redPickChildren[1], this.PICK_IMAGE_CLASS_NAME).style.border = borderStyle;
 
       return;
     }
     else if (selectedPickListLength <= 4) {
-      this.clearCurrentHeroPickBorder();
       this.getDivImage(bluePickChildren[1], this.PICK_IMAGE_CLASS_NAME).style.border = borderStyle;
       this.getDivImage(bluePickChildren[2], this.PICK_IMAGE_CLASS_NAME).style.border = borderStyle;
 
       return;
     }
     else if (selectedPickListLength == 5) {
-      this.clearCurrentHeroPickBorder();
       this.getDivImage(redPickChildren[2], this.PICK_IMAGE_CLASS_NAME).style.border = borderStyle;
 
     }
     else if (selectedPickListLength == 6) {
-      this.clearCurrentHeroPickBorder();
       this.getDivImage(redPickChildren[3], this.PICK_IMAGE_CLASS_NAME).style.border = borderStyle;
     }
     else if (selectedPickListLength <= 8) {
-      this.clearCurrentHeroPickBorder();
       this.getDivImage(bluePickChildren[3], this.PICK_IMAGE_CLASS_NAME).style.border = borderStyle;
       this.getDivImage(bluePickChildren[4], this.PICK_IMAGE_CLASS_NAME).style.border = borderStyle;
       return;
     }
     else if (selectedPickListLength == 9) {
-      this.clearCurrentHeroPickBorder();
       this.getDivImage(redPickChildren[4], this.PICK_IMAGE_CLASS_NAME).style.border = borderStyle;
       return;
     }
+  }
+
+  private isBlueTeamTurnToBan(): boolean {
+    let selectedPickListLength = this.addArrayLength(this.bluePickList, this.redPickList);
+    let selectedBanListLength = this.addArrayLength(this.blueBanList, this.redBanList);
+
+    return (this.isEven(selectedBanListLength) && selectedPickListLength == 0) || (!this.isEven(selectedBanListLength) && selectedPickListLength == 6)
   }
 
   getDivImage(element: Element, className: string): HTMLElement {
