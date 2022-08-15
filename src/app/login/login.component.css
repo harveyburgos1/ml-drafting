@@ -1,0 +1,28 @@
+label, h1 {
+    color: white;
+}
+
+.main-container {
+    position: relative;
+    top: 50px;
+    max-width: 1170px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1100px 600px;
+    -webkit-filter: drop-shadow(0px 0px 10px #000);
+    filter: drop-shadow(0px 0px 10px #000);
+}
+
+
+.container {
+    width: 1050px;
+    height: 600px;
+    padding: 50px;
+    padding-top: 40px;
+    background-color: #000a19;
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+}

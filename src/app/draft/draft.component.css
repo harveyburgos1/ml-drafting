@@ -1,0 +1,218 @@
+.main-container {
+    position: relative;
+    top: 50px;
+    max-width: 1170px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1100px 600px;
+    -webkit-filter: drop-shadow(0px 0px 10px #000);
+    filter: drop-shadow(0px 0px 10px #000);
+}
+
+.container {
+    width: 1050px;
+    height: 600px;
+    padding: 50px;
+    padding-top: 40px;
+    background-color: #000a19;
+}
+
+.head {
+    display: grid;
+    grid-template-columns: 380px 310px 380px;
+    /* gap: 0px 20px; */
+}
+
+.container-ban {
+    height: 160px;
+    width: 365px;
+}
+
+.header-blue {
+    background-color: #33f;
+}
+
+.team-input {
+    height: 100%;
+    width: 90%;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 2% 5%;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: left;
+    line-height: 100%;
+}
+
+.ban-list {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 76px 76px 76px 76px 76px;
+    grid-template-areas: "ban1 ban2 ban3 ban4 ban5";
+}
+
+.ban {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border: solid 2px transparent;
+}
+
+.blue-ban {
+    position: relative;
+    width: 46px;
+    height: 66px;
+    border: solid 2px transparent;
+}
+
+.image {
+    width: 60px;
+    height: 60px;
+    background-color: #011638;
+    background-size: cover;
+}
+
+.label {
+    width: 100%;
+    height: 20px;
+    background-color: transparent;
+    display: none;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 24px;
+}
+
+.container-timer {
+    position: relative;
+    width: 300px;
+    height: 130px;
+    background-color: #000;
+    display: grid;
+    grid-template-rows: 65px 45px;
+}
+
+.timer {
+    position: relative;
+    width: 100%;
+    height: 65px;
+    line-height: 70px;
+    color: #fff;
+    font-size: 40px;
+    text-align: center;
+}
+
+.header-red {
+    background-color: #a00;
+}
+
+.body {
+    display: grid;
+    grid-template-columns: 110px 550px 0;
+    gap: 0px 50px;
+    margin-left: 75px;
+}
+
+.pick {
+    grid-template-columns: 50px 76px;
+    grid-template-areas: "titleDiv imageDiv";
+    width: 76px;
+    height: 76px;
+    display: grid;
+    border: solid 3px transparent;
+    color: white;
+}
+
+.pick-image {
+    grid-area: imageDiv;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background-color: #011638;
+    background-size: cover;
+}
+
+.pick-name {
+    grid-area: titleDiv;
+    position: relative;
+    width: 40px;
+    height: 100%;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 94px;
+    text-align: center;
+}
+
+.hero-search {
+    position: relative;
+    top: 3px;
+    width: 550px;
+    height: 40px;
+    background-color: #011638;
+    margin-bottom: 10px;
+}
+
+.hero-search-input {
+    position: relative;
+    width: calc(100% - 2*10px);
+    height: 100%;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 0px 10px 0px 10px;
+    color: #fff;
+    font-size: 14px;
+    font-family: "Fira Mono", monospace;
+}
+
+.hero-container {
+    background-color: #011638;
+    width: 550px;
+    height: 380px;
+    position: relative;
+    top: 10px;
+    display: grid;
+    grid-template-columns: 76px 76px 76px 76px 76px 76px;
+    grid-auto-rows: 76px;
+    gap: 20px 15px;
+    overflow-y: scroll;
+
+}
+
+.timer-button button {
+    width: 100px;
+    padding: 8px 5px;
+}
+
+.m-l-25 {
+    margin-left: 25px;
+}
+
+.m-l-50 {
+    margin-left: 50px;
+}
+
+.btn-blue {
+    background-color: #008CBA;
+    color: white;
+    cursor: pointer;
+}
+
+#blue-pick {
+    color: #33f;
+}
+
+#blue-pick-list {
+    margin-top: 20px;
+}
+
+#red-pick-list {
+    margin-top: 20px;
+}
+
+#red-pick {
+    color:#a00;
+}
